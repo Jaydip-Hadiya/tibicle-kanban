@@ -1,0 +1,88 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+}
+
+/* Add Task Form */
+.add-task-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-field {
+  flex: 1 1 200px;
+}
+
+.description-field {
+  flex: 2 1 400px;
+}
+
+/* Board Columns */
+.board {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+}
+
+.column {
+  background: #f9f9f9;
+  padding: 8px;
+  border-radius: 8px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+}
+
+.column-header {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Task List Container */
+.task-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+/* Task Card */
+.task-card {
+  border-radius: 8px;
+  cursor: grab;
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.task-card mat-card-header {
+  padding-bottom: 0;
+}
+
+.task-desc {
+  padding-top: 8px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.delete-btn {
+  margin-left: auto;
+}

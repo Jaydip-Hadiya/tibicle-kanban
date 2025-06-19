@@ -1,0 +1,86 @@
+@if (loading()) {
+<app-loading-indicator></app-loading-indicator>
+} @else {
+<h2 class="form-title">Create New Task</h2>
+
+<form [formGroup]="newTaskForm" class="add-task-form" (ngSubmit)="addTask()">
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" placeholder="Enter title" />
+    @if (newTaskForm.get('title')?.hasError('required')) {
+    <mat-error> Title is required </mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field description-field">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      formControlName="description"
+      rows="2"
+      placeholder="Enter description"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="form-field">
+    <mat-label>Column</mat-label>
+    <mat-select formControlName="columnId">
+      @for (g of groups(); track $index) {
+      <mat-option [value]="g.column.id">
+        {{ g.column.title }}
+      </mat-option>
+      }
+    </mat-select>
+    @if (newTaskForm.get('columnId')?.hasError('required')) {
+    <mat-error> Column is required </mat-error>
+    }
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="submit"
+    [disabled]="newTaskForm.invalid"
+  >
+    Add Task
+  </button>
+</form>
+
+<!-- KANBAN BOARD -->
+<div class="board" cdkDropListGroup>
+  @for (group of groups(); track $index) {
+  <div class="column">
+    <h2 class="column-header">{{ group.column.title }}</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="group.tasks"
+      class="task-list"
+      (cdkDropListDropped)="drop($event, group.column.id)"
+    >
+      @for (t of group.tasks; track $index) {
+      <div cdkDrag>
+        <mat-card class="task-card mat-elevation-z2">
+          <mat-card-header>
+            <mat-card-title>{{ t.title }}</mat-card-title>
+            <button
+              mat-icon-button
+              class="delete-btn"
+              (click)="deleteTask(t.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-header>
+          @if (t.description) {
+          <mat-card-content class="task-desc">
+            {{ t.description }}
+          </mat-card-content>
+          }
+        </mat-card>
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>
+}
